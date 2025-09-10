@@ -1,0 +1,77 @@
+[user]
+    name = Daisuke Hatada
+    email = dhc4menz@gmail.com
+
+[core]
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+    pager = less -FRSX
+
+[color]
+    ui = auto
+    branch = auto
+    diff = auto
+    status = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[alias]
+    # Basic aliases
+    st = status
+    co = checkout
+    br = branch
+    cm = commit -m
+    ca = commit -am
+    
+    # Log aliases
+    lg = log --oneline --graph --decorate --all
+    ll = log --pretty=format:'%h %ad %s (%an)' --graph --date=short
+    last = log -1 HEAD
+    
+    # Diff aliases
+    df = diff
+    dc = diff --cached
+    
+    # Branch management
+    cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main' | xargs -n 1 git branch -d"
+    
+    # Stash aliases
+    sl = stash list
+    sa = stash apply
+    ss = stash save
+    sp = stash pop
+    
+    # Remote aliases
+    pu = push
+    pl = pull
+    fet = fetch
+    
+    # Show aliases
+    remotes = remote -v
+    branches = branch -a
+    tags = tag -l
+
+[push]
+    default = simple
+
+[pull]
+    rebase = false
+
+[merge]
+    tool = vimdiff
+
+[diff]
+    tool = vimdiff
+
+[init]
+    defaultBranch = main

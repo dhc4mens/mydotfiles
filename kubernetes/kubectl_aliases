@@ -1,0 +1,93 @@
+# Kubernetes Aliases - source this file or add to .bashrc
+
+# Core commands
+alias k='kubectl'
+alias kctl='kubectl'
+
+# Get commands
+alias kg='kubectl get'
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deployments'
+alias kgs='kubectl get services'
+alias kgi='kubectl get ingress'
+alias kgn='kubectl get nodes'
+alias kgns='kubectl get namespaces'
+alias kgpv='kubectl get pv'
+alias kgpvc='kubectl get pvc'
+alias kgcm='kubectl get configmaps'
+alias kgsec='kubectl get secrets'
+
+# Describe commands
+alias kd='kubectl describe'
+alias kdp='kubectl describe pod'
+alias kdd='kubectl describe deployment'
+alias kds='kubectl describe service'
+alias kdn='kubectl describe node'
+
+# Log commands
+alias kl='kubectl logs'
+alias klf='kubectl logs -f'
+alias klp='kubectl logs --previous'
+
+# Edit commands
+alias ke='kubectl edit'
+alias kep='kubectl edit pod'
+alias ked='kubectl edit deployment'
+alias kes='kubectl edit service'
+
+# Delete commands
+alias kdel='kubectl delete'
+alias kdelp='kubectl delete pod'
+alias kdeld='kubectl delete deployment'
+alias kdels='kubectl delete service'
+
+# Apply/Create commands
+alias ka='kubectl apply -f'
+alias kc='kubectl create'
+alias kcf='kubectl create -f'
+
+# Namespace commands
+alias kn='kubectl config set-context --current --namespace'
+alias kgcns='kubectl config get-contexts'
+alias kccc='kubectl config current-context'
+alias kcuc='kubectl config use-context'
+
+# Port forwarding
+alias kpf='kubectl port-forward'
+
+# Exec/Shell commands
+alias kex='kubectl exec -it'
+alias ksh='kubectl exec -it'
+
+# Top commands
+alias ktop='kubectl top'
+alias ktopn='kubectl top nodes'
+alias ktopp='kubectl top pods'
+
+# Watch commands
+alias kwp='watch kubectl get pods'
+alias kwn='watch kubectl get nodes'
+alias kwd='watch kubectl get deployments'
+
+# Useful functions
+kns() {
+    local namespace=$(kubectl get namespaces -o name | sed 's/namespace\///' | fzf)
+    if [ -n "$namespace" ]; then
+        kubectl config set-context --current --namespace=$namespace
+        echo "Switched to namespace: $namespace"
+    fi
+}
+
+kpod() {
+    local pod=$(kubectl get pods -o name | sed 's/pod\///' | fzf)
+    if [ -n "$pod" ]; then
+        kubectl exec -it $pod -- /bin/bash
+    fi
+}
+
+klogs() {
+    local pod=$(kubectl get pods -o name | sed 's/pod\///' | fzf)
+    if [ -n "$pod" ]; then
+        kubectl logs -f $pod
+    fi
+}
